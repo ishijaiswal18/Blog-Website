@@ -91,12 +91,29 @@ app.post("/compose", function(req,res){
   //posts.push(post);
 });
 
+app.post('/delete', (req, res) => {
+  const deleteId = req.body.deleteItem;
+  Post.deleteOne(
+    { _id: deleteId },
+    (err) => {
+      if (err) {console.log(err);}
+      else {
+        console.log("Delete successful");
+        res.redirect('/');
+      }
+    }
+  )
+});
+
+
 app.get("/posts/:postId", function(req,res){
   //var requested = req.params.postName;
   const requestedPostId = req.params.postId;
-  // console.log(req.params);
   Post.findById(requestedPostId, (err, post) => {
-    res.render("post", {content: post});
+    if(post === null){
+      res.render('post', res.render('post', { title: "Someone set us up the blogs.", content: "These are not the blogs you are looking for." }));
+    }
+    res.render("post", {content: post, id: req.params.postId});
   });
 
 });

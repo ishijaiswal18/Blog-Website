@@ -2,4 +2,9 @@
 <h1><%= content.title %> </h1>
 <p><%= content.content %>  </p>
 
+<form action="/delete" method="post">
+    <button class="btn btn-warning" type="submit">Delete Post</button>
+    <input type="hidden" name="deleteItem" value="<%= id%>">
+</form>
+
 <%- include("partials/footer") -%> 
