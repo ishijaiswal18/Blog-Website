@@ -50,11 +50,9 @@ app.get("/", function(req, res){
      if(err){
          console.log(`Error: ` + err)
      } else{
-       if(posts.length === 0){
-           console.log("message")
-       } else{
-        res.render("home", {homeStart: homeStartingContent, contents: posts});
-       }
+       
+      res.render("home", {homeStart: homeStartingContent, contents: posts});
+       
      }
   });
    
@@ -96,6 +94,7 @@ app.post("/compose", function(req,res){
 app.get("/posts/:postId", function(req,res){
   //var requested = req.params.postName;
   const requestedPostId = req.params.postId;
+  // console.log(req.params);
   Post.findById(requestedPostId, (err, post) => {
     res.render("post", {content: post});
   });
